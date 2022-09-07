@@ -4,7 +4,7 @@ import { CrearTareas } from "./CrearTareas";
 import { MostrarTareas } from "./MostrarTareas";
 
 export const TareasPage = () => {
-  const { obtenerTareas } = useTasks();
+  const { obtenerTareas } = useTasks();    
 
   useEffect(() => {
     obtenerTareas();
@@ -14,7 +14,7 @@ export const TareasPage = () => {
     <div>
       <section>
         <div>
-          <CrearTareas />
+          <CrearTareas/>
         </div>
       </section>
       <section>
