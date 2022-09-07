@@ -1,12 +1,12 @@
 import express from "express";
-import cors from 'cors'
+import cors from "cors";
 import morgan from "morgan";
 import { PORT } from "./config.js";
 import indexRoutes from "./routes/index.routes.js";
 import taskRoutes from "./routes/taskRoutes.js";
+import { userRoutes } from "./routes/userRoutes.js";
 
 const app = express();
-
 
 //configuraciones
 app.use(express.json());
@@ -19,6 +19,7 @@ app.use(cors({
 
 //routes
 app.use(indexRoutes);
+app.use(userRoutes);
 app.use(taskRoutes);
 
 app.listen(PORT, () => {

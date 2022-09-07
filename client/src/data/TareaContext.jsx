@@ -1,5 +1,5 @@
+import axios from "axios";
 import { createContext, useContext, useState } from "react";
-import { crearTareasRequest, eliminarTareaRequest, obtenerTareasRequest } from "./tareaData";
 
 const TareaContext = createContext();
 
@@ -14,10 +14,9 @@ const useTasks = () => {
 const TareaContextProvider = (props) => {
   const [tareas, setTareas] = useState([]);
 
-  const obtenerTareas = async () => {
-    setTareas([]);
+  const obtenerTareas = async () => {    
     try {
-      const result = await obtenerTareasRequest();
+      const result = await axios.get("http://localhost:4000/task")
       setTareas(result.data);
     } catch (error) {
       console.log(error);
@@ -26,7 +25,7 @@ const TareaContextProvider = (props) => {
 
   const agregarTareas = async (values, actions) => {
     try {
-      await crearTareasRequest(values);
+      await axios.post("http://localhost:4000/task", values);
       actions.resetForm();
       obtenerTareas();
     } catch (error) {
@@ -36,7 +35,7 @@ const TareaContextProvider = (props) => {
   const eliminarTareas = async (id) => {
     try {
       if (confirm("Esta seguro de eliminar la tarea")) {
-        await eliminarTareaRequest(id);
+        await axios.delete(`http://localhost:4000/task/${id}`);
         obtenerTareas();
       }
     } catch (error) {

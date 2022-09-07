@@ -29,9 +29,24 @@ CREATE TABLE IF NOT EXISTS `tareas` (
 
 -- Volcando datos para la tabla tolist-mern.tareas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tareas` DISABLE KEYS */;
-REPLACE INTO `tareas` (`id`, `title`, `description`, `createdAd`, `done`) VALUES
-	(1, 't1', 'd1', '2022-09-07 17:43:38', 0);
 /*!40000 ALTER TABLE `tareas` ENABLE KEYS */;
+
+-- Volcando estructura para tabla tolist-mern.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(200) NOT NULL,
+  `pass` varchar(200) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `lastname` varchar(200) DEFAULT NULL,
+  `lastLogin` timestamp NULL DEFAULT current_timestamp(),
+  `createdAt` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla tolist-mern.users: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
