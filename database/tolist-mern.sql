@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         10.9.2-MariaDB - mariadb.org binary distribution
+-- Versión del servidor:         10.6.8-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
 -- HeidiSQL Versión:             11.3.0.6295
 -- --------------------------------------------------------
@@ -20,32 +20,47 @@ USE `tolist-mern`;
 -- Volcando estructura para tabla tolist-mern.tareas
 CREATE TABLE IF NOT EXISTS `tareas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) DEFAULT NULL,
-  `description` varchar(300) DEFAULT NULL,
-  `createdAd` timestamp NULL DEFAULT current_timestamp(),
+  `title` varchar(150) DEFAULT NULL,
+  `description` varchar(350) DEFAULT NULL,
+  `createdAt` timestamp NULL DEFAULT current_timestamp(),
   `done` tinyint(4) DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `userId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_tareas_users` (`userId`),
+  CONSTRAINT `FK_tareas_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla tolist-mern.tareas: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla tolist-mern.tareas: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `tareas` DISABLE KEYS */;
+INSERT INTO `tareas` (`id`, `title`, `description`, `createdAt`, `done`, `userId`) VALUES
+	(21, 't2', 'd2', '2022-09-06 17:23:37', 0, NULL),
+	(23, 't3', 'd3', '2022-09-08 00:51:34', 0, NULL),
+	(24, 't3', 'd3', '2022-09-08 15:57:33', 0, NULL),
+	(25, 't4incognito', 'd4incognito', '2022-09-08 15:58:21', 0, NULL),
+	(26, 't4', 'd4', '2022-09-08 15:58:35', 0, NULL);
 /*!40000 ALTER TABLE `tareas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tolist-mern.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(200) NOT NULL,
-  `pass` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
   `name` varchar(200) DEFAULT NULL,
   `lastname` varchar(200) DEFAULT NULL,
   `lastLogin` timestamp NULL DEFAULT current_timestamp(),
   `createdAt` timestamp NULL DEFAULT current_timestamp(),
+  `email` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla tolist-mern.users: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla tolist-mern.users: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `username`, `password`, `name`, `lastname`, `lastLogin`, `createdAt`, `email`) VALUES
+	(1, 'safemango', 'clave', 'Agustin', 'Valori', '2022-09-08 00:31:26', '2022-09-08 00:31:27', NULL),
+	(3, 'agusvalori', 'clave1', 'Agustin', 'Valori', '2022-09-08 18:40:36', '2022-09-08 18:40:36', 'agusvalori@gmail.com'),
+	(5, 'dalinamaiz', 'clave1', 'Agustin', 'Valori', '2022-09-08 18:46:23', '2022-09-08 18:46:23', 'dalinamaiz@gmail.com');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
