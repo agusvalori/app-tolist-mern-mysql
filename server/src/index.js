@@ -6,22 +6,39 @@ import indexRoutes from "./routes/index.routes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 import { userRoutes } from "./routes/userRoutes.js";
 
+import passport from "passport";
+import session from "express-session";
+import './lib/PassportLocalStrategy.js'
+
+//Inicializaciones
 const app = express();
 
-//configuraciones
+//Middlewares
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-/*
-app.use(cors({
-  origin:'http://localhost:5173',
-}))
-*/
 
-//routes
+//Session configuracion
+app.use(
+  session({
+    secret: "lainez17",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+//Passport configuracion
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+//Routes
 app.use(indexRoutes);
 app.use(userRoutes);
 app.use(taskRoutes);
 
+//Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor inciado en el puerto: ${PORT}`);
 });
