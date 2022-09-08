@@ -9,8 +9,12 @@ HelpersCrypt.encryptPassword = async (password) => {
   return hash;
 };
 
-HelpersCrypt.comparePassword= async(password, passwordDb)=>{
-const result = await bcryptjs.compare(password)
-}
+HelpersCrypt.comparePassword = async (password, passwordDb) => {
+  try {
+    const result = await bcryptjs.compare(password);
+  } catch (error) {
+    console.log(error)
+  }
+};
 
 export { HelpersCrypt };
