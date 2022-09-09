@@ -1,12 +1,16 @@
 import { pool } from "./db.js";
 
 const agregarTarea = async (req, res) => {
-  const { title, description, fecha } = req.body;
-  const [result] = await pool.query(
-    "INSERT INTO tareas(title, description) VALUES(?,?)",
-    [title, description]
-  );
-  res.send({ id: result.insertId, title, description });
+  const { title, description, createdAt } = req.body;
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO tareas(title, description, createdAt) VALUES(?,?,?)",
+      [title, description, createdAt]
+    );
+    res.send({ id: result.insertId, title, description, createdAt });
+  } catch (error) {
+    console.log("Error al obtener la tarea de la bd:\n",error.message);
+  }
 };
 
 const obtenerTareas = async (req, res) => {
