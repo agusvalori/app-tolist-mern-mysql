@@ -6,6 +6,7 @@ const pool = createPool({
   user: "root",
   password: "ewqewq321",
   database: "tolist-mern",
+  connectionLimit: 10,
 });
 
 pool.getConnection((err, connection) => {
@@ -32,4 +33,4 @@ pool.getConnection((err, connection) => {
   }
 });
 
-export   {pool} ;
+export { pool };
